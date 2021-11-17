@@ -1,0 +1,25 @@
+{
+  "name": "platzipunks",
+  "version": "1.0.0",
+  "description": "Marketplace / Practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RolandoDrRobot/PlatziPunks.git"
+  },
+  "keywords": [
+    "Makrtplace",
+    "NFT",
+    "Solidity",
+    "Practice"
+  ],
+  "author": "Rolando Arguello",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RolandoDrRobot/PlatziPunks/issues"
+  },
+  "homepage": "https://github.com/RolandoDrRobot/PlatziPunks#readme"
+}
