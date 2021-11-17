@@ -12,4 +12,10 @@ npx hardhat test
 npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
+
+## Deploy in local hardhat enviroment
+npx hardhat run scripts/deploy-sample-script.js
+
+## Deploy smartcontract in ropsten
+npx hardhat run scripts/deploy-sample-script.js --network ropsten
 ```
