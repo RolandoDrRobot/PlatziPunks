@@ -12,6 +12,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 // We need to ise these functions to handle counters
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./Base64.sol";
 
 contract PlatziPunks is ERC721, ERC721Enumerable {
     // State variable
@@ -27,6 +28,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable {
     }
 
     // _safeMint already comes with 721 BUT It is a private function, so we create this mint function as a security layer
+    // The challange here!!! is to make this mint payable papiii 
     function mint() public {
         // .current() comes in Counter
         uint256 current = _idCounter.current();
@@ -36,6 +38,29 @@ contract PlatziPunks is ERC721, ERC721Enumerable {
         // Second param, the new token ID for the NFT
         _safeMint(msg.sender, current);
     }
+
+    // This allow us to fetch the metadata based in the tokenid
+    // It returns the string, in memory because It is only read
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+      // We need to first double check If the token exists with the included function
+      require(_exists(tokenId), "ERC721 Metadata: URI query for nonexisting token");
+
+      // https://docs.opensea.io/docs/metadata-standards here we have the desired values for Open Sea
+      string memory jsonURI = Base64.encode(
+        abi.encodePacked(
+          '{ "name": "PlatziPunks #',
+          tokenId,
+          '", "description": "Platzi Punks are randomized Avataaars stored on chain to teach DApp development on Platzi", "image": "',
+          "// TODO: Calculate image URL",
+          '"}'
+        )
+      );
+
+      // Here we concatenate with the internet standard
+      // string(...) parse to string
+      return string(abi.encodePacked("data:application/json;base64,", jsonURI));
+    }
+
 
     // These are override functions that Enumerable needs
     function _beforeTokenTransfer(
