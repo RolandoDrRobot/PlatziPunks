@@ -13,6 +13,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 // We need to ise these functions to handle counters
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./Base64.sol";
 // We will have this logic in other contract
 import "./PlatziPunksDNA.sol";
@@ -22,6 +23,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PlatziPunksDNA {
     using Counters for Counters.Counter;
     // The we set the counter variable as private
     Counters.Counter private _idCounter;
+    using Strings for uint256;
 
     // We pass It as a parameter so we do not hardcode the value when It is first created
     uint256 public maxSupply;
@@ -44,6 +46,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PlatziPunksDNA {
         // First param, the person who is going to receive the NFT
         // Second param, the new token ID for the NFT
         _safeMint(msg.sender, current);
+        _idCounter.increment();
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -107,7 +110,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PlatziPunksDNA {
       string memory jsonURI = Base64.encode(
         abi.encodePacked(
           '{ "name": "PlatziPunks #',
-          tokenId,
+          tokenId.toString(),
           '", "description": "Platzi Punks are randomized Avataaars stored on chain to teach DApp development on Platzi", "image": "',
           image,
           '"}'

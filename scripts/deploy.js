@@ -8,7 +8,7 @@ const deploy = async () => {
   // We create an instancec of the contract to deploy
   const PlatziPunks = await ethers.getContractFactory("PlatziPunks");
   // We created an instance of the deployed contract
-  const deployed = await PlatziPunks.deploy();
+  const deployed = await PlatziPunks.deploy(10000);
   console.log('PlatziPunks is deployed at:', deployed.address);
 };
 
